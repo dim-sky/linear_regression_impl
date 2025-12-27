@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+### In this example we will implement a linear regression model that uses (batch) Gradient Descent as the optimization algorithm
 
 if __name__ == "__main__":
 
