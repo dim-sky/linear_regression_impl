@@ -5,13 +5,17 @@ import numpy as np
 
 if __name__ == "__main__":
 
-    # Data
-    X = np.array([25, 35, 40, 50, 100, 130, 155, 200], dtype=float)        # square meters
-    y = np.array([60, 72, 78, 100, 230, 250, 260, 390], dtype=float)  # prices
+    # Data Preparation
+    m = 300
+    mySeed = np.random.seed(44)
+    X = np.random.uniform(25, 250, m) # House Size
+
+    noise = np.random.normal(0, 30000, m)
+    y= 1500*X + noise # Price in dollars
 
     # Normilize the data. (if i dont do that i will experience exploding gradient. Run without it to understand)
-    X = X / X.max()  # scale features to [0,1]
-
+    X = (X - min(X)) / (max(X) - min(X))  # normalize
+    y = (y - min(y)) / (max(y) - min(y))  # normalize
 
     # By looking at the plotted data we can see that they are lineary correlated 
     plt.scatter(X,y)
@@ -50,7 +54,7 @@ if __name__ == "__main__":
         y_pred = predict(X,w,b)
         dw = (2/m) * np.sum((y_pred - y) * X)
         db = (2/m) * np.sum(y_pred - y)
-        print(dw)
+        # print(dw)
         return dw, db
     
 
@@ -67,11 +71,12 @@ if __name__ == "__main__":
     
 
     # TRAIN MODEL AND VISUALISE 
+    print(gradient(y, w, X, b))
     w_final, b_final = gradient_descent(X, y, w, b, lr=0.1, epochs=1000)
     print(f"Final weight: {w_final}, Final bias: {b_final}")
 
 
-    plt.scatter(X, y, s=60)  # your data points
+    plt.scatter(X, y, s=60)
     plt.plot(X, predict(X, w_final, b_final), color='red')  # learned line
     plt.xlabel("Square Meters")
     plt.ylabel("Price")

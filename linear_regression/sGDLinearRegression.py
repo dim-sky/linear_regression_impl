@@ -83,7 +83,7 @@ if __name__ == "__main__":
     print(f"Final weight: {w_final}, Final bias: {b_final}")
 
 
-    plt.scatter(X, y, s=60)  # your data points
+    plt.scatter(X, y, s=60)
     plt.plot(X, predict(X, w_final, b_final), color='red')  # learned line
     plt.xlabel("Hours Of Studying")
     plt.ylabel("Final Grade")
